@@ -1,7 +1,7 @@
 # Janet ahttp
 
 ahttp is an async aware http server for janet. Requests may happen concurrently using
-janets native coroutines.
+janet's native coroutines.
 
 Documentation pending...
 
@@ -13,8 +13,8 @@ Documentation pending...
 (defn handler 
   [req]
   @{:status 404
-    :body "not found!"
-    :headers {"Content-Type" "text/plain"}})
+    :headers {"Content-Type" "text/plain"}}
+    :body "not found!")
 
 (defn main
   [&]
