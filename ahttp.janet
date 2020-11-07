@@ -48,7 +48,6 @@
   (defn read-request-head
     [stream p buf]
     (net/read stream 4096 buf)
-    (printf "reading request %j" buf)
     (def req (parser/parse p buf))
     (cond
       (= req :want-more)
