@@ -56,7 +56,7 @@
       nil
       req))
 
-  (def buffer/new 512)
+  (def buf (buffer/new 512))
 
   (when-let [req (read-request-head stream (parser/new) buf)]
     (when-let [body-len (get-in req [:headers "Content-Length"])]
