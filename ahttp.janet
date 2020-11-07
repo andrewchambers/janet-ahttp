@@ -56,13 +56,13 @@
       nil
       req))
 
-  (def buf @"")
+  (def buffer/new 512)
 
   (when-let [req (read-request-head stream (parser/new) buf)]
     (when-let [body-len (get-in req [:headers "Content-Length"])]
       (if-let [body-len (scan-number body-len)]
         (net/chunk stream (- body-len (length buf)) buf)
-        (errorf "invalid request Content-Length")))
+        (errorf "invalid request 'Content-Length'")))
     (put req :body buf)
 
     (def resp (handler req))
