@@ -2,9 +2,9 @@
 
 (defn handler 
   [req]
-  @{:status 404
-    :headers {"Content-Type" "text/plain"}}
-    :body "not found!")
+  @{:status 200
+    :body "hello!"
+    :headers {"Content-Type" "text/plain"}})
 
 (defn main
   [&]
