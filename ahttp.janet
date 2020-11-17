@@ -72,13 +72,14 @@
     # Reuse buffer, messy but more efficient.
     (buffer/clear buf)
     (buffer/format buf "HTTP/1.1 %d %s\r\n" status status-msg)
-    (when-let [headers (get resp :headers)]
+    (let [body (get resp :body "")
+          headers (get resp :headers {})
+          headers (merge {"Content-Length" (string (length body))} headers)]
       (eachk h headers
-        (buffer/format buf "%s: %s\r\n" h (in headers h))))
-    (buffer/push-string buf "\r\n")
-    (net/write stream buf)
-    (when-let [body (get resp :body)]
-      (net/write stream body))))
+        (buffer/format buf "%s: %s\r\n" h (in headers h)))
+      (buffer/push-string buf "\r\n")
+      (buffer/push-string buf body))
+    (net/write stream buf)))
 
 (defn server
   [host port handler]
