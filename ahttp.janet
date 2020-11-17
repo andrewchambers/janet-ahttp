@@ -78,8 +78,8 @@
       (eachk h headers
         (buffer/format buf "%s: %s\r\n" h (in headers h)))
       (buffer/push-string buf "\r\n")
-      (buffer/push-string buf body))
-    (net/write stream buf)))
+      (net/write stream buf)
+      (net/write stream body))))
 
 (defn server
   [host port handler]
